@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patent in Biotechnology — Law Scholar's Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal:    #4A4A4A;
+    --cool-gray:   #CBCBCB;
+    --ivory:       #FFFFE3;
+    --slate:       #6D8196;
+    --slate-dark:  #4a5e6e;
+    --slate-light: #8fa8be;
+    --muted:       #8a8a8a;
+    --border:      rgba(109,129,150,0.3);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    background: #f0f0e8;
+    color: var(--charcoal);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.82;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(155deg, #3a3a3a 0%, #4A4A4A 38%, #5a6878 68%, #6D8196 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 5rem 2rem;
+    position: relative; overflow: hidden;
+    color: var(--ivory);
+  }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,227,0.05) 60px);
+    pointer-events:none;
+  }
+  .hero::after {
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 55% 40% at 12% 28%, rgba(255,255,227,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 88% 72%, rgba(109,129,150,0.22) 0%, transparent 70%);
+    pointer-events:none;
+  }
+
+  .dna-side {
+    position:absolute; top:50%; transform:translateY(-50%);
+    opacity:0.08; pointer-events:none;
+  }
+  .dna-side.left  { left:0; }
+  .dna-side.right { right:0; transform:translateY(-50%) scaleX(-1); }
+
+  .hero-badge {
+    position:relative; z-index:2;
+    display:inline-block;
+    border:1px solid rgba(255,255,227,0.45);
+    color:var(--ivory);
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.7rem; letter-spacing:0.22em;
+    padding:0.45em 1.3em; border-radius:2px;
+    margin-bottom:2.2rem;
+    animation:fadeDown 0.8s ease both;
+    background:rgba(255,255,227,0.07);
+    text-transform:uppercase;
+  }
+  .hero h1 {
+    position:relative; z-index:2;
+    font-family:'Playfair Display',serif;
+    font-size:clamp(3rem,7.5vw,6.2rem);
+    font-weight:900; line-height:1.03;
+    letter-spacing:-0.02em; margin-bottom:1.2rem;
+    color:var(--ivory); animation:fadeDown 0.9s 0.1s ease both;
+  }
+  .hero h1 em { font-style:italic; color:var(--cool-gray); }
+  .hero-sub {
+    position:relative; z-index:2;
+    font-size:1.18rem; color:rgba(255,255,227,0.68);
+    max-width:550px; margin:0 auto 2.5rem;
+    font-style:italic; animation:fadeDown 1s 0.2s ease both;
+  }
+  .hero-meta {
+    position:relative; z-index:2;
+    display:flex; gap:0.9rem; flex-wrap:wrap; justify-content:center;
+    animation:fadeDown 1.1s 0.3s ease both;
+  }
+  .meta-pill {
+    background:rgba(255,255,227,0.1);
+    border:1px solid rgba(255,255,227,0.22);
+    padding:0.32em 0.95em; border-radius:100px;
+    font-size:0.78rem; color:var(--ivory);
+    font-family:'JetBrains Mono',monospace;
+  }
+  .scroll-hint {
+    position:absolute; bottom:2.5rem; z-index:2;
+    display:flex; flex-direction:column; align-items:center; gap:0.4rem;
+    color:rgba(255,255,227,0.32); font-size:0.68rem;
+    letter-spacing:0.15em; font-family:'JetBrains Mono',monospace;
+    animation:bob 2s ease-in-out infinite;
+  }
+  .arrow-down {
+    width:16px; height:16px;
+    border-right:2px solid rgba(255,255,227,0.38);
+    border-bottom:2px solid rgba(255,255,227,0.38);
+    transform:rotate(45deg); margin-top:3px;
+  }
+  @keyframes bob   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
+
+  /* TOC */
+  .toc {
+    position:fixed; left:0; top:50%;
+    transform:translateY(-50%);
+    background:rgba(255,255,227,0.97);
+    border-right:2px solid var(--slate);
+    padding:1.2rem 0; z-index:200; display:none;
+    box-shadow:4px 0 20px rgba(74,74,74,0.1);
+  }
+  @media(min-width:1200px){ .toc{display:block;} }
+  .toc a {
+    display:block; padding:0.37rem 1.1rem;
+    color:var(--muted); text-decoration:none;
+    font-size:0.67rem; letter-spacing:0.08em;
+    font-family:'JetBrains Mono',monospace;
+    transition:all 0.2s; border-left:3px solid transparent;
+  }
+  .toc a:hover,.toc a.active {
+    color:var(--charcoal); border-left-color:var(--slate);
+    background:rgba(109,129,150,0.1);
+  }
+
+  /* MAIN */
+  main { max-width:860px; margin:0 auto; padding:2rem 2rem 6rem; }
+
+  /* SECTIONS */
+  .section {
+    margin:5rem 0; opacity:0; transform:translateY(26px);
+    transition:opacity 0.65s ease, transform 0.65s ease;
+  }
+  .section.visible { opacity:1; transform:translateY(0); }
+
+  .section-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.69rem; color:var(--slate);
+    letter-spacing:0.22em; text-transform:uppercase;
+    margin-bottom:0.6rem;
+    display:flex; align-items:center; gap:1rem;
+  }
+  .section-num::after { content:''; height:1px; background:var(--border); flex:1; }
+
+  .section h2 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.9rem,4vw,2.6rem);
+    font-weight:700; line-height:1.18;
+    margin-bottom:1.5rem; color:var(--charcoal);
+  }
+  .section h3 {
+    font-family:'Playfair Display',serif;
+    font-size:1.28rem; color:var(--slate-dark);
+    margin:2.2rem 0 0.7rem; font-weight:700;
+  }
+  .section p { color:#3a3a3a; margin-bottom:1rem; }
+  ul,ol { padding-left:1.5rem; color:#3a3a3a; }
+  li { margin-bottom:0.5rem; }
+  strong { color:var(--charcoal); font-weight:700; }
+  em { font-style:italic; }
+
+  /* SECTION ICON */
+  .section-icon {
+    display:flex; align-items:center; justify-content:center;
+    width:54px; height:54px; border-radius:12px;
+    margin-bottom:1.2rem;
+    background:var(--ivory); border:1.5px solid var(--border);
+    box-shadow:0 2px 10px rgba(109,129,150,0.1);
+  }
+  .section-icon svg { width:26px; height:26px; }
+
+  /* DIVIDER */
+  .divider { display:flex; align-items:center; gap:1.5rem; margin:4rem 0; }
+  .divider::before,.divider::after { content:''; flex:1; height:1px; background:var(--border); }
+  .divider-dot { width:7px; height:7px; border-radius:50%; background:var(--slate); box-shadow:0 0 0 3px rgba(109,129,150,0.2); }
+
+  /* CARDS */
+  .card {
+    background:var(--ivory); border:1px solid var(--border);
+    border-radius:10px; padding:1.55rem 1.75rem;
+    margin:1.25rem 0; position:relative; overflow:hidden;
+    transition:transform 0.28s, box-shadow 0.28s;
+    box-shadow:0 2px 10px rgba(74,74,74,0.06);
+  }
+  .card:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(74,74,74,0.11); }
+  .card::before {
+    content:''; position:absolute; top:0; left:0;
+    width:4px; height:100%;
+    background:var(--charcoal); border-radius:4px 0 0 4px;
+  }
+  .card.slate::before  { background:var(--slate); }
+  .card.light::before  { background:var(--slate-light); }
+  .card.danger::before { background:#8b5e5e; }
+  .card h4 {
+    font-family:'Playfair Display',serif;
+    font-size:1.1rem; color:var(--charcoal);
+    margin-bottom:0.45rem; font-weight:700;
+  }
+  .card.slate h4  { color:var(--slate-dark); }
+  .card.light h4  { color:var(--slate); }
+  .card.danger h4 { color:#6b3030; }
+
+  /* GRID */
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1.15rem; margin:1.3rem 0; }
+  @media(max-width:620px){ .grid-2{ grid-template-columns:1fr; } }
+
+  /* CASE BOX */
+  .case-box {
+    border:1.5px solid var(--slate); border-radius:10px;
+    padding:1.6rem 1.8rem; margin:1.8rem 0;
+    background:var(--ivory); position:relative;
+    box-shadow:0 2px 14px rgba(109,129,150,0.1);
+  }
+  .case-badge {
+    position:absolute; top:-13px; left:1.5rem;
+    background:var(--charcoal); color:var(--ivory);
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.63rem; font-weight:600;
+    letter-spacing:0.12em; padding:0.25em 0.9em;
+    border-radius:100px; text-transform:uppercase;
+  }
+  .case-title {
+    font-family:'Playfair Display',serif;
+    font-style:italic; font-size:1.18rem;
+    color:var(--slate-dark); margin-bottom:0.3rem; font-weight:700;
+  }
+  .case-cite {
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.7rem; color:var(--muted); margin-bottom:0.8rem;
+  }
+
+  /* TABLE */
+  .compare-wrap { overflow-x:auto; margin:1.5rem 0; }
+  .compare-table { width:100%; border-collapse:collapse; font-size:0.88rem; min-width:560px; }
+  .compare-table th {
+    background:var(--charcoal); color:var(--ivory);
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.68rem; letter-spacing:0.1em;
+    padding:0.8rem 1rem; text-align:left;
+  }
+  .compare-table td {
+    padding:0.72rem 1rem; border-bottom:1px solid var(--border);
+    color:#3a3a3a; vertical-align:top; background:var(--ivory);
+  }
+  .compare-table tr:hover td { background:#f4f4cc; }
+
+  /* CALLOUT */
+  .callout {
+    background:rgba(109,129,150,0.08);
+    border-left:4px solid var(--slate);
+    padding:1.15rem 1.45rem; border-radius:0 8px 8px 0;
+    margin:1.4rem 0; font-style:italic; color:#3a3a3a;
+  }
+  .callout.warn    { background:rgba(139,94,94,0.07); border-left-color:#8b5e5e; }
+  .callout.success { background:rgba(74,110,80,0.07); border-left-color:#4a6e50; }
+
+  /* TIMELINE */
+  .timeline { position:relative; padding-left:2.5rem; margin:2rem 0; }
+  .timeline::before {
+    content:''; position:absolute; left:0.55rem; top:0; bottom:0;
+    width:2px; background:linear-gradient(to bottom, var(--slate), rgba(109,129,150,0.1));
+  }
+  .timeline-item { position:relative; margin-bottom:2rem; }
+  .timeline-item::before {
+    content:''; position:absolute; left:-2.1rem; top:0.42rem;
+    width:13px; height:13px; border-radius:50%;
+    background:var(--slate); border:2px solid #f0f0e8;
+    box-shadow:0 0 0 2px var(--slate);
+  }
+  .timeline-year {
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.76rem; color:var(--slate);
+    letter-spacing:0.12em; margin-bottom:0.2rem; font-weight:600;
+  }
+  .timeline-item p { margin-bottom:0; }
+
+  /* TAGS */
+  .tags { display:flex; flex-wrap:wrap; gap:0.45rem; margin:1rem 0; }
+  .tag {
+    padding:0.22em 0.8em; border-radius:4px;
+    font-size:0.76rem; font-family:'JetBrains Mono',monospace; border:1px solid;
+  }
+  .tag.yes   { color:#3a6e45; border-color:rgba(58,110,69,0.38); background:rgba(58,110,69,0.07); }
+  .tag.no    { color:#6e3a3a; border-color:rgba(110,58,58,0.38); background:rgba(110,58,58,0.07); }
+  .tag.maybe { color:var(--slate-dark); border-color:rgba(109,129,150,0.38); background:rgba(109,129,150,0.08); }
+
+  /* BLOCKQUOTE */
+  blockquote {
+    border-left:3px solid var(--cool-gray);
+    padding:0.5rem 1.5rem; margin:1.5rem 0;
+    font-style:italic; font-size:1.1rem; color:var(--muted);
+    background:rgba(203,203,203,0.1); border-radius:0 6px 6px 0;
+  }
+
+  /* HIGHLIGHT */
+  .highlight-box {
+    background:var(--ivory); border:1px solid var(--border);
+    border-radius:10px; padding:1.5rem 1.75rem; margin:1.5rem 0;
+    box-shadow:0 2px 12px rgba(109,129,150,0.08);
+  }
+  .highlight-box h3 { font-family:'Playfair Display',serif; color:var(--slate-dark); margin-bottom:1rem; }
+
+  /* STATS */
+  .stat-row { display:flex; gap:1.2rem; flex-wrap:wrap; margin:1.5rem 0; }
+  .stat {
+    flex:1; min-width:145px; background:var(--charcoal);
+    border-radius:10px; padding:1.25rem; text-align:center;
+  }
+  .stat-num {
+    font-family:'Playfair Display',serif;
+    font-size:2.1rem; font-weight:900;
+    color:var(--ivory); line-height:1; margin-bottom:0.3rem;
+  }
+  .stat-label { font-size:0.73rem; color:var(--cool-gray); font-family:'JetBrains Mono',monospace; }
+
+  /* DNA PULSE */
+  .dna-visual { display:flex; justify-content:center; align-items:center; padding:2.5rem 0; gap:6px; }
+  .helix-bar { width:5px; border-radius:3px; background:var(--slate); animation:pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{height:6px;opacity:0.25} 50%{height:38px;opacity:1} }
+
+  /* FOOTER */
+  footer {
+    text-align:center; padding:4rem 2rem;
+    background:var(--charcoal); color:var(--cool-gray); font-size:0.85rem;
+  }
+  footer .footer-title {
+    font-family:'Playfair Display',serif;
+    font-size:1.6rem; color:var(--ivory); margin-bottom:0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <!-- SVG DNA helix left -->
+  <svg class="dna-side left" viewBox="0 0 80 640" width="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40 0 Q80 53 40 107 Q0 160 40 213 Q80 267 40 320 Q0 373 40 427 Q80 480 40 533 Q0 587 40 640" stroke="white" stroke-width="2"/>
+    <path d="M40 0 Q0 53 40 107 Q80 160 40 213 Q0 267 40 320 Q80 373 40 427 Q0 480 40 533 Q80 587 40 640" stroke="white" stroke-width="2"/>
+    <circle cx="40" cy="107" r="4" fill="white"/><circle cx="40" cy="213" r="4" fill="white"/>
+    <circle cx="40" cy="320" r="4" fill="white"/><circle cx="40" cy="427" r="4" fill="white"/>
+    <circle cx="40" cy="533" r="4" fill="white"/>
+    <line x1="8" y1="53"  x2="72" y2="53"  stroke="white" stroke-width="1.2"/>
+    <line x1="8" y1="160" x2="72" y2="160" stroke="white" stroke-width="1.2"/>
+    <line x1="8" y1="267" x2="72" y2="267" stroke="white" stroke-width="1.2"/>
+    <line x1="8" y1="373" x2="72" y2="373" stroke="white" stroke-width="1.2"/>
+    <line x1="8" y1="480" x2="72" y2="480" stroke="white" stroke-width="1.2"/>
+    <line x1="8" y1="587" x2="72" y2="587" stroke="white" stroke-width="1.2"/>
+  </svg>
+  <!-- SVG DNA helix right (mirrored) -->
+  <svg class="dna-side right" viewBox="0 0 80 640" width="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40 0 Q80 53 40 107 Q0 160 40 213 Q80 267 40 320 Q0 373 40 427 Q80 480 40 533 Q0 587 40 640" stroke="white" stroke-width="2"/>
+    <path d="M40 0 Q0 53 40 107 Q80 160 40 213 Q0 267 40 320 Q80 373 40 427 Q0 480 40 533 Q80 587 40 640" stroke="white" stroke-width="2"/>
+    <circle cx="40" cy="107" r="4" fill="white"/><circle cx="40" cy="213" r="4" fill="white"/>
+    <circle cx="40" cy="320" r="4" fill="white"/><circle cx="40" cy="427" r="4" fill="white"/>
+    <circle cx="40" cy="533" r="4" fill="white"/>
+    <line x1="8" y1="53"  x2="72" y2="53"  stroke="white" stroke-width="1.2"/>
+    <line x1="8" y1="160" x2="72" y2="160" stroke="white" stroke-width="1.2"/>
+    <line x1="8" y1="267" x2="72" y2="267" stroke="white" stroke-width="1.2"/>
+    <line x1="8" y1="373" x2="72" y2="373" stroke="white" stroke-width="1.2"/>
+    <line x1="8" y1="480" x2="72" y2="480" stroke="white" stroke-width="1.2"/>
+    <line x1="8" y1="587" x2="72" y2="587" stroke="white" stroke-width="1.2"/>
+  </svg>
+
+  <div class="hero-badge">Intellectual Property Law &nbsp;·&nbsp; Biotechnology</div>
+  <h1>Patent in<br><em>Biotechnology</em></h1>
+  <p class="hero-sub">A comprehensive, law-student level guide — from foundational principles to frontier challenges in biotech IP law.</p>
+  <div class="hero-meta">
+    <span class="meta-pill">Exam-Ready</span>
+    <span class="meta-pill">Case Laws Included</span>
+    <span class="meta-pill">India · US · EU</span>
+    <span class="meta-pill">TRIPS · PCT · EPC</span>
+  </div>
+  <div class="scroll-hint">SCROLL<div class="arrow-down"></div></div>
+</section>
+
+<!-- TOC -->
+<nav class="toc">
+  <a href="#intro">01 Introduction</a>
+  <a href="#need">02 Need &amp; Rationale</a>
+  <a href="#criteria">03 Patentability</a>
+  <a href="#subject">04 Subject Matter</a>
+  <a href="#framework">05 Legal Framework</a>
+  <a href="#cases">06 Case Laws</a>
+  <a href="#strategy">07 Strategies</a>
+  <a href="#challenges">08 Challenges</a>
+  <a href="#alternatives">09 Alternatives</a>
+  <a href="#future">10 Future</a>
+  <a href="#conclusion">11 Conclusion</a>
+</nav>
+
+<main>
+
+<!-- 01 INTRO -->
+<section class="section" id="intro">
+  <div class="section-num">01 — Introduction</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12h8M12 8v8"/>
+    </svg>
+  </div>
+  <h2>What is Biotechnology &amp; Why Does Patent Law Matter?</h2>
+
+  <h3>Defining Biotechnology</h3>
+  <p><strong>Biotechnology</strong> is the application of biological systems, living organisms, or their derivatives to develop products, processes, and technologies that benefit human beings. In its broadest sense, it spans from ancient fermentation techniques (Egyptians used yeasts in bread and wine-making around 4000 B.C.) to modern CRISPR gene editing.</p>
+  <p>The <strong>Convention on Biological Diversity (CBD)</strong> defines it as: <em>"any technological application that uses biological systems, living organisms, or derivatives thereof, to make or modify products or processes for specific use."</em></p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h4>Traditional Biotechnology</h4>
+      <p>Fermentation, selective breeding, cheese production, yeast-based processes — applications of biology without genetic engineering. Practised for millennia before formal IP systems existed.</p>
+    </div>
+    <div class="card slate">
+      <h4>Modern Biotechnology</h4>
+      <p>Recombinant DNA technology, gene editing (CRISPR), monoclonal antibodies, stem cell therapy, bioinformatics, synthetic biology — the primary domain of biotech patents today.</p>
+    </div>
+  </div>
+
+  <h3>Defining a Patent</h3>
+  <p>A <strong>patent</strong> is an exclusive statutory right granted by the government to an inventor for a limited period (generally <strong>20 years</strong> from the filing date), in exchange for full public disclosure of the invention. It gives the patent holder the right to <em>exclude</em> others from making, using, selling, or importing the patented invention without permission.</p>
+
+  <div class="callout">
+    <strong>Core Bargain of Patent Law:</strong> The inventor discloses the invention to the public; the state grants a temporary monopoly. After the patent expires, the knowledge enters the public domain freely.
+  </div>
+
+  <h3>Importance of Patents in Biotech Innovation</h3>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num">$2B+</div><div class="stat-label">Average cost to develop a new drug</div></div>
+    <div class="stat"><div class="stat-num">10–15</div><div class="stat-label">Years from discovery to market</div></div>
+    <div class="stat"><div class="stat-num">20 yrs</div><div class="stat-label">Patent protection term (TRIPS)</div></div>
+  </div>
+  <p>Pharmaceutical and biotech companies spend billions on R&amp;D. Without patent protection, competitors who incur no R&amp;D costs could immediately copy innovations and sell them cheaper, destroying the economic incentive to innovate. Patents thus act as the <strong>engine of biotech innovation</strong> — and simultaneously as a source of controversy when they restrict access to life-saving technologies.</p>
+</section>
+
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- 02 NEED -->
+<section class="section" id="need">
+  <div class="section-num">02 — Need &amp; Rationale</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
+    </svg>
+  </div>
+  <h2>Why Do We Need Patents in Biotechnology?</h2>
+
+  <h3>Economic Justification</h3>
+  <div class="card">
+    <h4>Cost Recovery</h4>
+    <p>Developing a single biologic drug can cost upwards of $2 billion with a 10–15 year development window. Patents allow companies to recoup enormous upfront costs by charging premium prices during the exclusivity period — without which the industry could not sustain itself.</p>
+  </div>
+  <div class="card slate">
+    <h4>Investment Protection &amp; Venture Capital</h4>
+    <p>Without patent protection, investors would be unwilling to fund early-stage biotech research. Patents serve as <em>collateral assets</em> — making startups investable by demonstrating protected competitive advantage that justifies the risk.</p>
+  </div>
+  <div class="card light">
+    <h4>Technology Transfer — The Bayh-Dole Model</h4>
+    <p>Patents facilitate licensing arrangements enabling technology to flow from universities and research institutions to commercial entities. The US Bayh-Dole Act (1980) spurred unprecedented university-industry collaboration and is widely emulated globally.</p>
+  </div>
+
+  <h3>Role in Promoting R&amp;D</h3>
+  <blockquote>"The patent system added the fuel of interest to the fire of genius." — Abraham Lincoln</blockquote>
+  <p>Patents incentivize innovation through: (1) <strong>Disclosure requirement</strong> — expanding the collective pool of scientific knowledge so competitors can design around patents; (2) <strong>First-mover advantage</strong> — rewarding risk-takers who invest in novel therapies; (3) <strong>Sequential innovation</strong> — published patent literature becomes a roadmap for follow-on research by others.</p>
+  <div class="callout success">
+    <strong>Example:</strong> Genentech's 1982 patent on recombinant human insulin (produced in bacteria) transformed diabetes treatment globally and catalyzed the entire biopharmaceutical industry — demonstrating the power of biotech patents when functioning as intended.
+  </div>
+</section>
+
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- 03 CRITERIA -->
+<section class="section" id="criteria">
+  <div class="section-num">03 — Patentability Criteria</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+    </svg>
+  </div>
+  <h2>Criteria for Patentability in Biotechnology</h2>
+  <p>For any biotech invention to be patentable, it must satisfy three universal criteria recognised under TRIPS (Art. 27) and most national patent laws.</p>
+
+  <div class="card">
+    <h4>&#9312; Novelty</h4>
+    <p>The invention must not have been disclosed to the public anywhere in the world before the filing date — assessed by <strong>prior art</strong> (any earlier publication, patent, or public use).</p>
+    <p><strong>Biotech Example:</strong> Isolating and characterising a protein from a plant never described in prior publications can satisfy novelty. Merely discovering that a naturally occurring substance exists is not novel if its properties were already known.</p>
+    <p><strong>India (Section 2(1)(l), Patents Act 1970):</strong> An invention is not novel if anticipated by prior publication or prior claiming.</p>
+  </div>
+
+  <div class="card slate">
+    <h4>&#9313; Inventive Step (Non-Obviousness)</h4>
+    <p>The invention must not be obvious to a <strong>person skilled in the art (PSITA)</strong> in view of the prior art. In India this is "inventive step" (Sec. 2(1)(ja)); in the US it is "non-obviousness" (35 USC §103).</p>
+    <p><strong>Biotech Example:</strong> Creating a novel CRISPR delivery mechanism solving off-target editing problems — a solution a skilled molecular biologist would not have arrived at from existing literature alone — satisfies inventive step.</p>
+    <p><strong>Key Test (US):</strong> Graham v. John Deere Co. (1966) — scope and content of prior art, differences therefrom, level of ordinary skill in the pertinent art.</p>
+  </div>
+
+  <div class="card light">
+    <h4>&#9314; Industrial Applicability (Utility)</h4>
+    <p>The invention must be capable of being made or used in some kind of industry. The invention must have a <em>specific, substantial, and credible utility</em>.</p>
+    <p><strong>Biotech Example:</strong> A gene sequence coding for a therapeutic protein useful in treating cancer satisfies industrial applicability. A randomly sequenced DNA fragment with no known function does not.</p>
+    <p><strong>Historical Problem:</strong> During the Human Genome Project era, many EST (Expressed Sequence Tag) patent applications were filed without demonstrated utility — correctly rejected.</p>
+  </div>
+
+  <div class="callout">
+    <strong>Additional Requirement — India Section 3(d):</strong> For known substances, a mere new form that does not result in enhanced efficacy is not patentable. This provision — made famous by Novartis v. Union of India (2013) regarding imatinib (Gleevec) — is India's powerful anti-evergreening shield.
+  </div>
+</section>
+
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- 04 SUBJECT MATTER -->
+<section class="section" id="subject">
+  <div class="section-num">04 — Subject Matter</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+    </svg>
+  </div>
+  <h2>Patentable vs. Non-Patentable Subject Matter</h2>
+
+  <h3>What CAN be Patented?</h3>
+  <div class="tags">
+    <span class="tag yes">GMOs (Microorganisms)</span>
+    <span class="tag yes">Recombinant Proteins</span>
+    <span class="tag yes">Biotech Processes</span>
+    <span class="tag yes">Vaccines (Novel)</span>
+    <span class="tag yes">Diagnostic Kits</span>
+    <span class="tag yes">Cell Lines (Non-human)</span>
+    <span class="tag yes">cDNA</span>
+    <span class="tag maybe">Gene Sequences (with utility)</span>
+    <span class="tag maybe">Modified Animals (varies)</span>
+    <span class="tag maybe">Stem Cell Lines</span>
+  </div>
+  <div class="grid-2">
+    <div class="card light"><h4>Microorganisms</h4><p>Following Diamond v. Chakrabarty (1980) and India's 2002 amendment, genetically modified microorganisms with industrial utility are patentable. India explicitly allows this via Sec. 3(j).</p></div>
+    <div class="card light"><h4>Biotechnological Processes</h4><p>Novel methods of producing biologics, fermentation processes, gene editing protocols, and purification techniques are broadly patentable if they satisfy the three criteria.</p></div>
+    <div class="card light"><h4>cDNA (Complementary DNA)</h4><p>After Myriad Genetics (2013), cDNA (synthetically created from mRNA, not naturally occurring) remains patentable in the US because it does not exist in nature.</p></div>
+    <div class="card light"><h4>Vaccines &amp; Biologics</h4><p>Novel vaccines (e.g., mRNA vaccines), monoclonal antibodies, and therapeutic proteins developed through biotech processes are patentable subject matter in most jurisdictions.</p></div>
+  </div>
+
+  <h3>What CANNOT be Patented?</h3>
+  <div class="tags">
+    <span class="tag no">Natural Phenomena</span>
+    <span class="tag no">Human Beings</span>
+    <span class="tag no">Laws of Nature</span>
+    <span class="tag no">Natural DNA Sequences</span>
+    <span class="tag no">Traditional Knowledge</span>
+    <span class="tag no">Plant Varieties (India)</span>
+    <span class="tag no">Animals (EU strictly)</span>
+    <span class="tag no">Mere Discoveries</span>
+    <span class="tag no">Methods of Treatment</span>
+  </div>
+  <div class="card danger"><h4>Section 3(b) — Morality / Public Order</h4><p>Inventions contrary to public order or morality, or those causing serious prejudice to human, animal, or plant life or to the environment are excluded. Many "designer baby" technologies fall here.</p></div>
+  <div class="card danger"><h4>Section 3(c) — Mere Discoveries</h4><p>The mere discovery of a scientific principle or abstract theory is not patentable. Finding that a wild plant cures fever without creating a new formulation is a discovery, not an invention.</p></div>
+  <div class="card danger"><h4>Section 3(j) — Plants, Animals &amp; Biological Processes</h4><p>Plants and animals in whole or any part (other than microorganisms) and essentially biological processes for production of plants and animals are excluded. However, microorganisms and non-biological/microbiological processes may be patented.</p></div>
+  <div class="card danger"><h4>Section 3(p) — Traditional Knowledge</h4><p>Inventions which are traditional knowledge or aggregations of known properties of traditionally known components are excluded. India's TKDL has documented 34 million pages of traditional knowledge, successfully opposing 200+ biopiracy patent applications globally.</p></div>
+
+  <h3>Comparative Perspective</h3>
+  <div class="highlight-box">
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr><th>Issue</th><th>India</th><th>USA</th><th>EU</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Microorganisms</td><td>Patentable (2002 Amendment)</td><td>Patentable (Diamond v. Chakrabarty)</td><td>Patentable (Directive 98/44/EC)</td></tr>
+          <tr><td>Human genes</td><td>Limited; Sec. 3(c)/(j)</td><td>Natural DNA — No; cDNA — Yes (Myriad)</td><td>Allowed with industrial application</td></tr>
+          <tr><td>Transgenic animals</td><td>Not patentable (Sec. 3(j))</td><td>Patentable (Harvard Mouse, 1988)</td><td>Allowed if benefit outweighs suffering</td></tr>
+          <tr><td>Plant varieties</td><td>PPV&amp;FR Act (sui generis)</td><td>Plant Patent Act + utility patents</td><td>Community Plant Variety Rights</td></tr>
+          <tr><td>Methods of treatment</td><td>Not patentable (Sec. 3(i))</td><td>Patentable</td><td>Not patentable (Art. 53(c) EPC)</td></tr>
+          <tr><td>Traditional knowledge</td><td>Explicitly excluded + TKDL</td><td>Prior art reference only</td><td>Limited protection via prior art</td></tr>
+          <tr><td>Anti-evergreening</td><td>Strong — Section 3(d)</td><td>Weak — no specific provision</td><td>Moderate through EPO examination</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- 05 FRAMEWORK -->
+<section class="section" id="framework">
+  <div class="section-num">05 — Legal Framework</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/>
+    </svg>
+  </div>
+  <h2>International Legal Framework</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">1970</div>
+      <p><strong>Patent Cooperation Treaty (PCT)</strong> — Administered by WIPO, the PCT allows inventors to file a single international patent application effective in 157+ countries. Crucial for biotech companies with global portfolios.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">1973</div>
+      <p><strong>European Patent Convention (EPC)</strong> — Established the European Patent Office (EPO). Article 53(b) EPC excludes essentially biological processes; Art. 53(a) excludes inventions against public order or morality.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">1977</div>
+      <p><strong>Budapest Treaty on Microorganisms</strong> — Enables a single deposit of a microorganism with an International Depositary Authority (IDA) to satisfy deposit requirements for all contracting states. India is a signatory. Dramatically simplifies patent procedures for biotech inventions involving microorganisms.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">1995</div>
+      <p><strong>TRIPS Agreement (WTO)</strong> — Article 27(1) requires patents be available in all fields of technology. Article 27(3)(b) allows members to exclude plants and animals (except microorganisms) and essentially biological processes. India became a TRIPS signatory in 1995 upon joining the WTO.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">1998</div>
+      <p><strong>EU Biotech Directive 98/44/EC</strong> — Specifically addresses patentability of biotechnological inventions in Europe. Allows gene patents with specific utility; prohibits patents on human cloning, germline gene therapy, and commercial uses of human embryos.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2001</div>
+      <p><strong>Doha Declaration on TRIPS and Public Health</strong> — Affirmed that TRIPS shall not prevent members from taking measures to protect public health. Critical for compulsory licensing of biotech medicines in developing nations.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card slate"><h4>WTO — World Trade Organization</h4><p>Administers TRIPS. Provides dispute resolution for IP-related trade disputes and monitors compliance of 164 member states with minimum IP standards.</p></div>
+    <div class="card"><h4>WIPO — World Intellectual Property Organization</h4><p>UN agency administering the PCT and Budapest Treaty. Conducts capacity building for developing nations on biotech IP and manages norms on genetic resources.</p></div>
+  </div>
+
+  <div class="card">
+    <h4>India's Three Landmark Amendments</h4>
+    <ul>
+      <li><strong>1999 (First Amendment):</strong> Introduced product patent applications in mailbox provisions; complied with Art. 70(8) of TRIPS.</li>
+      <li><strong>2002 (Second Amendment):</strong> Extended patent term to 20 years; allowed patenting of biotechnological and microbiological products; India ratified the Budapest Treaty.</li>
+      <li><strong>2005 (Third Amendment):</strong> Eliminated Section 5 (process-only patents for drugs/chemicals); allowed product patents; inserted Section 3(d) to prevent evergreening.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- 06 CASES -->
+<section class="section" id="cases">
+  <div class="section-num">06 — Key Case Laws</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 0 0 6.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 0 0 6.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+    </svg>
+  </div>
+  <h2>Landmark Cases in Biotech Patent Law</h2>
+
+  <div class="case-box">
+    <div class="case-badge">Landmark — USA · 1980</div>
+    <div class="case-title">Diamond v. Chakrabarty</div>
+    <div class="case-cite">447 U.S. 303 (1980) | US Supreme Court</div>
+    <p>Ananda Chakrabarty developed a genetically engineered Pseudomonas bacterium capable of breaking down crude oil — useful for oil spill treatment. The USPTO rejected the patent, arguing living organisms are not patentable.</p>
+    <p><strong>Held (5-4):</strong> A live, human-made organism is patentable subject matter. Famous formulation: <em>"anything under the sun that is made by man"</em> can be patented, provided it meets the statutory criteria.</p>
+    <p><strong>Significance:</strong> Opened the floodgates for modern biotechnology patents. Established that the distinction between living and non-living matter is not determinative — what matters is whether the subject matter is a product of human ingenuity.</p>
+  </div>
+
+  <div class="case-box">
+    <div class="case-badge">Landmark — USA · 2013</div>
+    <div class="case-title">Association for Molecular Pathology v. Myriad Genetics, Inc.</div>
+    <div class="case-cite">569 U.S. 576 (2013) | US Supreme Court</div>
+    <p>Myriad Genetics held patents on BRCA1 and BRCA2 genes (mutations in which dramatically increase breast and ovarian cancer risk), monopolising testing at $3,000–$4,000 per test and preventing second opinions.</p>
+    <p><strong>Held (9-0 unanimous):</strong> Naturally occurring DNA segments are products of nature — not patentable, even when isolated. However, <strong>cDNA</strong> (synthetically created, not found in nature) is patentable.</p>
+    <p><strong>Principle:</strong> Discovery of a naturally occurring thing, however innovative the isolation technique, does not transform it into a patentable invention. The critical question is whether the claimed material is markedly different from what exists in nature.</p>
+  </div>
+
+  <div class="case-box">
+    <div class="case-badge">Landmark — India · 2013</div>
+    <div class="case-title">Novartis AG v. Union of India</div>
+    <div class="case-cite">(2013) 6 SCC 1 | Supreme Court of India</div>
+    <p>Novartis sought a patent for the beta-crystalline form of imatinib mesylate (cancer drug Gleevec). Granting the patent would have blocked cheap generic versions from Indian manufacturers supplying the developing world.</p>
+    <p><strong>Held:</strong> Patent rejected under <strong>Section 3(d)</strong> — the new polymorph did not demonstrate significantly enhanced therapeutic efficacy compared to the known substance. Improved bioavailability alone does not equal enhanced efficacy.</p>
+    <p><strong>Significance:</strong> Upheld India's strict anti-evergreening provision; affirmed Section 3(d) is TRIPS-compliant; protected India's role as the "pharmacy of the developing world."</p>
+  </div>
+
+  <div class="case-box">
+    <div class="case-badge">India · 2002</div>
+    <div class="case-title">Dimminaco AG v. Controller of Patents &amp; Designs</div>
+    <div class="case-cite">AIR 2002 Cal 282 | Calcutta High Court</div>
+    <p>Dimminaco (Swiss company) sought a patent for a process for manufacturing a live vaccine against Bursitis. The Controller rejected it, contending a process ending in a living organism was not patentable.</p>
+    <p><strong>Held:</strong> A process resulting in a living end product (a live vaccine) is patentable if it satisfies novelty, inventive step, and industrial applicability.</p>
+    <p><strong>Significance:</strong> First Indian judicial pronouncement recognising biotech processes producing living organisms can be patented; paved the way for the 2002 amendment.</p>
+  </div>
+
+  <div class="case-box">
+    <div class="case-badge">USA — Bioethics · 1990</div>
+    <div class="case-title">Moore v. Regents of University of California</div>
+    <div class="case-cite">793 P.2d 479 (Cal. 1990)</div>
+    <p>John Moore's cancerous spleen cells were used to develop a profitable cell line without his knowledge. The University held a patent on the cell line worth millions.</p>
+    <p><strong>Held:</strong> Moore did not have a property right in his excised cells, but the doctors had a fiduciary duty to disclose their economic interests. The University's patent on the cell line was valid.</p>
+    <p><strong>Significance:</strong> Raises profound questions about informed consent, bodily autonomy, and commercialisation of human biological material — central to the bioethics of biotech patenting.</p>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- 07 STRATEGY -->
+<section class="section" id="strategy">
+  <div class="section-num">07 — Patent Strategies</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+    </svg>
+  </div>
+  <h2>Patent Strategies in Biotechnology</h2>
+
+  <h3>Patent Thickets</h3>
+  <p>A <strong>patent thicket</strong> is a dense web of overlapping patents covering multiple aspects of a single technology, making it extremely difficult and expensive for competitors to enter the market without licensing. The CRISPR gene editing landscape — with competing patents from UC Berkeley, MIT, and the Broad Institute — is a prime contemporary example.</p>
+
+  <div class="callout warn">
+    <strong>Problem:</strong> Patent thickets can paradoxically stifle innovation by making it too expensive or legally risky for new entrants to work in a field, even after core patents expire — the opposite of the patent system's stated purpose.
+  </div>
+
+  <h3>Core vs. Secondary Patents</h3>
+  <div class="grid-2">
+    <div class="card"><h4>Core (Pioneer) Patents</h4><p>Cover the primary molecule, gene, or mechanism itself. These are the most valuable and typically filed first. Example: AbbVie's core patent on adalimumab (Humira) — once the world's best-selling drug.</p></div>
+    <div class="card slate"><h4>Secondary (Satellite) Patents</h4><p>Cover formulations, delivery mechanisms, dosage regimes, manufacturing processes, or specific uses. Strategically filed before core patents expire to extend effective market exclusivity — the <strong>evergreening</strong> strategy.</p></div>
+  </div>
+
+  <h3>Case Study: Humira Patent Fortress</h3>
+  <div class="highlight-box">
+    <p>AbbVie filed over <strong>100+ patents</strong> protecting Humira — covering the antibody itself, formulation, concentration, delivery device, manufacturing process, disease indications, and combination therapies. This "patent fortress" delayed biosimilar competition in the US until 2023, generating over $200 billion in cumulative sales. Critics call this the quintessential example of patent strategy being used as a barrier to competition rather than an innovation incentive.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card light"><h4>Continuation Patents</h4><p>Filing continuation applications allows companies to pursue new claims from the same original disclosure as technology evolves — keeping prosecution alive for years.</p></div>
+    <div class="card light"><h4>Divisional Applications</h4><p>When an application contains multiple inventions, divisional filings allow each to be pursued separately — multiplying patent coverage from a single R&amp;D breakthrough.</p></div>
+    <div class="card"><h4>Patent Pooling</h4><p>Companies cross-license patents, reducing litigation risk. The Medicines Patent Pool (MPP) uses this concept for HIV/HCV/TB drugs to improve access in developing nations.</p></div>
+    <div class="card"><h4>Strategic Filing Timing</h4><p>The US America Invents Act (2011) shifted from first-to-invent to first-to-file, intensifying the race to file before competitors publish research.</p></div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- 08 CHALLENGES -->
+<section class="section" id="challenges">
+  <div class="section-num">08 — Challenges &amp; Criticisms</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+  </div>
+  <h2>Challenges and Criticisms of Biotech Patents</h2>
+
+  <div class="card danger">
+    <h4>1. Ethical Concerns — Patenting Life</h4>
+    <p>Should living organisms marginally different from natural forms be treated as inventions subject to monopoly rights? Critics argue that patenting genes or modified organisms commodifies life itself, violating the ethical principle that life forms are part of the common heritage of humankind. The Myriad case raised this directly — can a corporation "own" a gene that occurs in human bodies?</p>
+  </div>
+  <div class="card danger">
+    <h4>2. Evergreening</h4>
+    <p><strong>Evergreening</strong> is the practice of filing patents on trivial modifications to existing drugs — new salt forms, polymorphs, dosage regimens — to extend market exclusivity without substantial therapeutic innovation. India's Section 3(d) directly targets this, as upheld in Novartis v. UOI (2013).</p>
+  </div>
+  <div class="card danger">
+    <h4>3. Patent Trolls (Non-Practicing Entities)</h4>
+    <p>Patent trolls hold patents purely to extract licensing fees through litigation, without producing any products or conducting research. In biotech, diagnostic and research tool patents can threaten clinical laboratories and university researchers — chilling innovation rather than promoting it.</p>
+  </div>
+  <div class="card danger">
+    <h4>4. Access to Medicines</h4>
+    <p>High-cost biologic medicines protected by layered patent strategies remain inaccessible to patients in developing countries. A course of treatment with Keytruda (pembrolizumab) can cost $150,000+ annually. Compulsory licensing (Art. 31, TRIPS; Doha Declaration 2001) provides a mechanism, but is rarely invoked due to diplomatic pressure.</p>
+  </div>
+  <div class="card danger">
+    <h4>5. Biopiracy</h4>
+    <p>Companies filing patents on inventions based on traditional knowledge without fair benefit-sharing constitute <strong>biopiracy</strong>. The turmeric patent (US 5,401,504) and the neem patent controversy are classic examples where India successfully challenged and revoked patents via the TKDL.</p>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- 09 ALTERNATIVES -->
+<section class="section" id="alternatives">
+  <div class="section-num">09 — Alternatives to Patents</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+      <polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+    </svg>
+  </div>
+  <h2>Alternatives to Patent Protection</h2>
+
+  <div class="card"><h4>Trade Secrets</h4><p>Companies may protect biotech inventions as trade secrets — avoiding disclosure requirements and gaining potentially unlimited protection duration. In biotech, manufacturing processes for biologics (cell culture media, fermentation conditions) are commonly protected as trade secrets. Protection is lost if independently discovered or reverse-engineered.</p></div>
+  <div class="card slate"><h4>Regulatory Exclusivity (Data Exclusivity)</h4><p>Separate from patents, regulatory agencies like the US FDA grant <strong>data exclusivity</strong> preventing competitors from relying on originator clinical trial data (5 years for NCEs, 12 years for biologics under US BPCIA). India notably does not have a comprehensive data exclusivity regime — a matter of ongoing policy debate.</p></div>
+  <div class="card light"><h4>Plant Breeders' Rights / Sui Generis Systems</h4><p>India enacted the <strong>Protection of Plant Varieties and Farmers' Rights (PPV&amp;FR) Act, 2001</strong> — uniquely also protecting farmers' traditional rights to save, use, and exchange seeds, balancing innovation with food sovereignty.</p></div>
+  <div class="card"><h4>Trademarks and Branding</h4><p>Brand names (Glivec, Humira) remain protected as trademarks indefinitely. Companies leverage brand loyalty and physician familiarity to maintain market share against biosimilars even after patents expire.</p></div>
+  <div class="card slate"><h4>Open Source Biology / Patent Pledges</h4><p>The Biological Open Source (BiOS) initiative allows free use of patents for non-commercial research. During COVID-19, companies pledged not to enforce vaccine patents in low-income countries — demonstrating voluntary access mechanisms as an alternative to compulsory licensing.</p></div>
+</section>
+
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- 10 FUTURE -->
+<section class="section" id="future">
+  <div class="section-num">10 — Future of Biotech Patents</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+    </svg>
+  </div>
+  <h2>The Future: Emerging Challenges</h2>
+
+  <div class="card slate">
+    <h4>AI-Generated Inventions</h4>
+    <p>AI systems are increasingly generating novel biotech inventions — identifying drug candidates, designing novel proteins (DeepMind's AlphaFold). The DABUS case (Thaler v. Vidal, 2022, US) raised: can an AI be named as an inventor? US, EU, India, and UK courts all answered no — the Patent Act requires human inventors. But the policy question remains: who owns AI-generated biotech innovations, and how should the law adapt?</p>
+  </div>
+  <div class="card light">
+    <h4>CRISPR and Synthetic Biology</h4>
+    <p>CRISPR-Cas9 gene editing — itself the subject of one of the most expensive patent disputes in history (UC Berkeley vs. Broad Institute/MIT) — enables precise genome modification. Synthetic biology goes further, designing entirely new genetic circuits and artificial life forms. Patent systems designed for mechanical inventions create immense legal uncertainty about enablement, claim scope, and non-obviousness in this context.</p>
+  </div>
+  <div class="card">
+    <h4>mRNA Technology and Pandemic Preparedness</h4>
+    <p>COVID-19 vaccines from Moderna and Pfizer/BioNTech are protected by complex mRNA technology patent estates. The Moderna-NIH dispute over co-inventorship raised questions about government ownership of pandemic-critical biotech. Future pandemics will test whether patent exclusivity systems can respond quickly enough to global health emergencies.</p>
+  </div>
+  <div class="grid-2">
+    <div class="card danger"><h4>Diagnostic Method Patents</h4><p>After Mayo v. Prometheus (2012) and Alice Corp. v. CLS Bank (2014), diagnostic methods based on natural correlations face severe patentability challenges in the US — potentially leaving precision medicine innovations unprotected.</p></div>
+    <div class="card danger"><h4>Biodiversity &amp; Nagoya Protocol</h4><p>The Nagoya Protocol (2014) requires benefit-sharing for genetic resources. Companies accessing genetic resources from biodiverse nations must demonstrate compliance — or risk invalidation of resulting patents.</p></div>
+  </div>
+  <div class="callout">
+    <strong>Fundamental Policy Challenge:</strong> The tension in biotech patents remains unresolved — how do we maintain strong enough incentives for private innovation while ensuring that life-saving innovations remain accessible to all of humanity, especially in low-income nations?
+  </div>
+</section>
+
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- 11 CONCLUSION -->
+<section class="section" id="conclusion">
+  <div class="section-num">11 — Conclusion</div>
+  <div class="section-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#6D8196" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+  </div>
+  <h2>Conclusion: Balancing Innovation and Public Access</h2>
+
+  <p>Biotechnology has become one of the most transformative fields in human history — offering solutions to diseases, hunger, and environmental degradation. The patent system has been its indispensable companion, providing the financial and legal infrastructure for R&amp;D investment. Yet this partnership is increasingly strained by the tensions inherent in treating life itself as intellectual property.</p>
+
+  <blockquote>"Biotechnological patenting was implemented to safeguard inventors' rights and interests. A biotechnological innovation, stemming from human creativity applied to a biological process, deserves patent protection. However, it is essential to ensure that the invention does not compromise moral values or ethics."</blockquote>
+
+  <p>The core challenge for the 21st century is this: patents were designed to reward human ingenuity and promote public welfare — but in biotechnology, they are sometimes wielded to restrict access to medicines, suppress competition through thickets, and commodify living organisms of doubtful human "creation."</p>
+
+  <div class="highlight-box">
+    <h3>Policy Implications</h3>
+    <ul>
+      <li><strong>Stronger Section 3(d)-type provisions</strong> should be adopted globally to prevent evergreening of biotech innovations.</li>
+      <li><strong>Compulsory licensing</strong> mechanisms under TRIPS must be made more practically accessible to developing nations during health crises.</li>
+      <li><strong>TKDL-type systems</strong> should be internationally recognised as prior art to combat biopiracy globally.</li>
+      <li><strong>AI inventorship frameworks</strong> must be developed urgently to prevent legal uncertainty from stifling AI-driven drug discovery.</li>
+      <li><strong>Patent pooling and open innovation</strong> models should be incentivised for pandemic preparedness and neglected tropical disease research.</li>
+      <li><strong>Benefit-sharing</strong> under the Nagoya Protocol must be integrated into patent grant procedures worldwide.</li>
+    </ul>
+  </div>
+
+  <p>Ultimately, as the Supreme Court of India recognised in the Novartis judgment, patent law in biotechnology must serve its fundamental utilitarian purpose: <em>the greatest benefit to the greatest number</em>. Biological materials created through human ingenuity deserve protection — but that protection must always be weighed against humanity's collective stake in access to the building blocks of life itself.</p>
+
+  <!-- Pure CSS DNA pulse — no images -->
+  <div class="dna-visual">
+    <div class="helix-bar" style="animation-delay:0s"></div>
+    <div class="helix-bar" style="animation-delay:0.12s"></div>
+    <div class="helix-bar" style="animation-delay:0.24s"></div>
+    <div class="helix-bar" style="animation-delay:0.36s"></div>
+    <div class="helix-bar" style="animation-delay:0.48s"></div>
+    <div class="helix-bar" style="animation-delay:0.60s"></div>
+    <div class="helix-bar" style="animation-delay:0.72s"></div>
+    <div class="helix-bar" style="animation-delay:0.84s"></div>
+    <div class="helix-bar" style="animation-delay:0.96s"></div>
+    <div class="helix-bar" style="animation-delay:1.08s"></div>
+    <div class="helix-bar" style="animation-delay:1.20s"></div>
+    <div class="helix-bar" style="animation-delay:1.32s"></div>
+    <div class="helix-bar" style="animation-delay:1.44s"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-title">Patent in Biotechnology</div>
+  <p>A Law Scholar's Comprehensive Guide &nbsp;·&nbsp; Submitted to Dr. Nidhi Buch, GNLU Centre for IPR, Gujarat National Law University</p>
+  <p style="margin-top:0.75rem;font-size:0.75rem;color:#8a8a8a;">
+    References: Indian Patents Act 1970 (amended 1999, 2002, 2005) &middot; TRIPS Agreement &middot; Diamond v. Chakrabarty (1980) &middot; Myriad Genetics (2013) &middot; Novartis v. UOI (2013) &middot; Dimminaco AG (2002) &middot; Budapest Treaty 1977
+  </p>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  const tocLinks = document.querySelectorAll('.toc a');
+  const sectionEls = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sectionEls.forEach(sec => {
+      if(window.scrollY >= sec.offsetTop - 220) current = sec.getAttribute('id');
+    });
+    tocLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>
